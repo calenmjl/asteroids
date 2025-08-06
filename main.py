@@ -6,6 +6,10 @@ import pygame
 from constants import * # import constants 
 from player import Player # import the Player class
 
+updatable = pygame.sprite.Group()
+drawable = pygame.sprite.Group()
+Player.containers = (updatable, drawable)
+
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # set the screen size
@@ -21,11 +25,13 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        screen.fill((0, 0, 0))  # Fill the screen with black
-        player.draw(screen)  # Draw the player
-        pygame.display.flip()  # Update the display
         dt = game_clock.tick(60) / 1000 # Convert milliseconds to seconds and cap at 60 FPS
-        player.update(dt)
+        updatable.update(dt)
+        screen.fill((0, 0, 0))  # Fill the screen with black
+        for item in drawable:
+            item.draw(screen)
+        pygame.display.flip()  # Update the display
+        
         
 if __name__ == "__main__":
     main()
