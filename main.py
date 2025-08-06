@@ -25,6 +25,7 @@ def main():
         player.draw(screen)  # Draw the player
         pygame.display.flip()  # Update the display
         dt = game_clock.tick(60) / 1000 # Convert milliseconds to seconds and cap at 60 FPS
+        player.update(dt)
         
 if __name__ == "__main__":
     main()
