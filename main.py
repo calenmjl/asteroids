@@ -33,6 +33,10 @@ def main():
                 return
         dt = game_clock.tick(60) / 1000 # Convert milliseconds to seconds and cap at 60 FPS
         updatable.update(dt)
+        for asteroid in asteroids:
+            if asteroid.collision(player):
+                print("Game over!")
+                return
         screen.fill((0, 0, 0))  # Fill the screen with black
         for item in drawable:
             item.draw(screen)
